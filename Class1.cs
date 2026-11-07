@@ -1,31 +1,59 @@
-﻿
-                                    static async Task<int> RunLogind2(string fileName2, string args22){
-                                        var M2process = new Process{
-                                            StartInfo = new ProcessStartInfo{
-                                            FileName = fileName2,
-                                            Arguments = args22,
-                                            RedirectStandardOutput = true,
-                                            RedirectStandardError = true,
-                                            UseShellExecute = false,
-                                            CreateNoWindow = true
-                                        }
-                                    };
-                                    try{
-                                        M2process.Start();
-                                    }catch(Exception anyEx2){
-                                        Console.WriteLine($"The Start exception: {anyEx2}");
-                                    }
-                                    await Task.Run(() => M2process.WaitForExit());
-                                    return M2process.ExitCode;
-                                    }
-                                    try{
-                                        int catchRes2 = await RunLogind2("D:\\casino\\stablecoin\\bank\\casinoD\\logind\\logind.exe", Program.passArgs);
-                                        Console.WriteLine($"Exit Code: {catchRes2}");
-                                        if(catchRes2 == 8){
-                                            Program.path = "webroot\\wwwroot\\bank\\members\\" + Program.rVarValue[0] + "\\" + Program.rVarValue[0] + ".html";
-                                        }else if(catchRes2 == 10){
-                                            Program.path = "webroot/wwwroot/bank/relogin.html";
-                                        }            
-                                    }catch(Exception someEx2){
-                                        Console.WriteLine($"Error: {someEx2.Message}");
-                                    }
+﻿    public async Task ParseFunc(string newQuery){
+        Program.pBlankCount = 0;
+        for(ushort order = 2; order < newQuery.Length; ++order){
+            if(newQuery[order] == '\n' | newQuery[order] == '\r' | newQuery[order] == '\0'){
+                    Program.pBlanksArr[Program.pBlankCount] = order;
+                Program.pBlankCount++;
+            }else if(newQuery[order] == '\\'){
+                Program.bsLoc[Program.bsCount] = order;
+                ++Program.bsCount;
+                for(int bs = 0; bs < Program.bsCount; ++bs){
+                Console.WriteLine("bsCount: " + (bs + 1) + "\t" + "bsLoc: " + (Program.bsLoc[bs] - 2));
+                }
+            }else if(newQuery[order] == '/'){
+                Program.fsLoc[Program.fsCount] = order;
+                ++Program.fsCount;
+                for(int fs = 0; fs < Program.fsCount; ++fs){
+                Console.WriteLine("fsCount: " + (fs + 1) + "\t" + "fsLoc: " + (Program.fsLoc[fs] - 2));
+                }
+            }else if(newQuery[order] == '.'){
+                Program.perLoc[Program.perCount] = order;
+                ++Program.perCount;
+                for(int per = 0; per < Program.perCount; ++per){
+                Console.WriteLine("perCount: " + (per + 1) + "\t" + "perLoc: " + (Program.perLoc[per] - 2));
+                }
+            }else if(newQuery[order] == '?'){
+                Program.qmLoc = order;
+                Console.WriteLine("qmLoc: " + (Program.qmLoc - 2));
+            }else if(newQuery[order] == '\n'){
+                Program.nlLoc[Program.nlCount] = order;
+                ++Program.nlCount;
+            }else if(newQuery[order] == '\r'){
+                Program.crLoc[Program.crCount] = order;
+                ++Program.crCount;
+            }else if(newQuery[order] == '='){
+                Program.eqLoc[Program.eqCount] = order;
+                ++Program.eqCount;
+                for(int eq = 0; eq < Program.eqCount; ++eq){
+                Console.WriteLine("eqCount: " + (eq + 1) + "\t" + "eqLoc: " + (Program.eqLoc[eq] - 2));
+                }
+            }else if(newQuery[order] == '&'){
+                Program.ampLoc[Program.ampCount] = order;
+                ++Program.ampCount;
+                for(int amp = 0; amp < Program.ampCount; ++amp){
+                Console.WriteLine("ampCount: " + (amp + 1) + "\t" + "ampLoc: " + (Program.ampLoc[amp] - 2));
+                }
+            }else if((newQuery[order] == '*') && (newQuery[order - 1] == '*') && (newQuery[order - 2] == '*')){
+                for(ushort parX = ++order; parX < newQuery.Length; ++parX){
+                    Program.parsedCom = Program.parsedCom + newQuery[parX];
+                }
+                Console.WriteLine("parsedCom: " + Program.parsedCom);
+                if(Program.parsedCom == ""){
+                    AdminFunc("exit");
+                }else{
+                    AdminFunc(Program.parsedCom);
+                }
+            }else
+                continue;
+        }
+    }
