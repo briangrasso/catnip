@@ -1,4 +1,4 @@
-// copied from book
+// copied from book - a base 
 using System;
 using System.IO;
 using System.Net;
