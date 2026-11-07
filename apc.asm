@@ -1,3 +1,4 @@
+; this one really doesn't serve any purpose... thought I'd throw it in anyway. Not correct...
         option          casemap:none
         option          DOTNAME
 
@@ -12,7 +13,7 @@
 ;constants
                 .const
             fmtBuf          byte        '%c', nl, 0
-            titleStr        byte        'gspoker', nl, 0       ; need to get title from rbp!
+            titleStr        byte        'gspoker', nl, 0
 ;variables
                 .data
             externdef           printf:proc
